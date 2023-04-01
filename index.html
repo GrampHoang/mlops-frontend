@@ -102,6 +102,7 @@
 			const form = document.querySelector('#myform');
 			const submitBtn = document.querySelector('#submit-btn');
 			const jsonOutput = document.getElementById('jsoninfo');
+			const stringOutput = document.getElementById('outstr');
 
 			form.addEventListener('submit', async (e) => {
 				e.preventDefault();
@@ -122,7 +123,8 @@
 				console.log(resultImg);
 				console.log(jsonOutput);
 				
-				 jsonOutput.innerHTML = JSON.stringify(jsonres.results, null, 2);
+				jsonOutput.innerHTML = jsonres.results;
+				stringOutput.innerHTML = jsonres.result_str;
 				
 				document.getElementById("jsoninfo").style.display = "block";
 				document.getElementById("outstr").style.display = "block";
