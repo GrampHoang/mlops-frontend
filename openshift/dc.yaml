@@ -1,0 +1,53 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  name: frontend-mlops-deploy
+labels:
+  app.kubernetes.io/name: mlops
+  app.kubernetes.io/instance: mlops-main
+  app.kubernetes.io/part-of: mlops
+objects:
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: frontend-mlops
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: mlops-main
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/instance: mlops-main
+        spec:
+          containers:
+            - name: frontend-mlops
+              image: docker.io/hoangchieng/mlops-frontend:v1
+              imagePullPolicy: Always
+              resources:
+                limits:
+                  cpu: '100'
+                  memory: 2Gi
+                requests:
+                  cpu: 100m
+                  memory: 2Gi
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: frontend-mlops
+    spec:
+      ports:
+        - name: frontend-mlops
+          port: 80
+      selector:
+        app.kubernetes.io/instance: mlops-main
+  - apiVersion: route.openshift.io/v1
+    kind: Route
+    metadata:
+      name: frontend-mlops
+    spec:
+      host: frontend-mlops-prj-gramphoang.apps.sandbox-m3.1530.p1.openshiftapps.com
+      to:
+        kind: Service
+        name: frontend-mlops
