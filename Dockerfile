@@ -1,5 +1,4 @@
-# FROM nginx:alpine
-FROM nginxinc/nginx-unprivileged 
+FROM nginx:alpine
 
 # Copy nginx configuration file to the container
 COPY nginx.conf /etc/nginx/nginx.conf
