@@ -27,10 +27,10 @@ objects:
               imagePullPolicy: Always
               resources:
                 limits:
-                  cpu: '20'
+                  cpu: '4'
                   memory: 2Gi
                 requests:
-                  cpu: 10m
+                  cpu: 1m
                   memory: 2Gi
   - apiVersion: v1
     kind: Service
