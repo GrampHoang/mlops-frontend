@@ -11,5 +11,8 @@ COPY style.css /usr/share/nginx/html/
 # Expose port 80
 EXPOSE 8008
 
+RUN chmod -R 777 /var/run/
+RUN chmod -R 777 /var/cache/
+
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
