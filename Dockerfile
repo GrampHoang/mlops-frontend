@@ -9,7 +9,7 @@ COPY style.css /usr/share/nginx/html/
 
 
 # Expose port 80
-EXPOSE 80
+EXPOSE 8008
 
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
