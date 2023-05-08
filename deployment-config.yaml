@@ -1,0 +1,64 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  name: frontend-mlops
+  labels:
+    app: mlops-app
+spec:
+  replicas: 1
+  selector:
+    app: mlops-app
+    deploymentconfig: frontend-mlops
+  strategy:
+    type: Rolling
+    rollingParams:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  template:
+    metadata:
+      labels:
+        app: mlops-app
+        deploymentconfig: frontend-mlops
+    spec:
+      containers:
+      - name: frontend-mlops
+        image: docker.io/gramphoang/front-docker:latest
+        ports:
+        - containerPort: 8008
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "1m"
+          limits:
+            memory: "512Mi"
+            cpu: "4m"
+        # imagePullSecrets:
+        # - name: artifactory-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-mlops-dc
+  labels:
+    app: mlops-app
+spec:
+  selector:
+    app: mlops-app
+    deploymentconfig: frontend-mlops
+  ports:
+    - name: http
+      port: 8008
+      targetPort: 8008
+  type: ClusterIP
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: frontend-mlops-dc
+  labels:
+    app: mlops-app
+spec:
+      host: frontend-mlops-prj.apps.sandbox-m3.1530.p1.openshiftapps.com
+      to:
+        kind: Service
+        name: frontend-mlops-dc 
