@@ -32,6 +32,8 @@ spec:
           limits:
             memory: "512Mi"
             cpu: "4m"
+      imagePullSecrets:
+      - name: artifactory
         # imagePullSecrets:
         # - name: artifactory-secret
 ---
