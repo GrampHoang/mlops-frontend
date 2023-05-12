@@ -13,13 +13,14 @@ pipeline {
     }
 
     environment {
-        //The name and version for the backend image to be built
-        IMAGE_TO_PUSH="${BE_IMAGE_NAME}:${params.VERSION}"
-
         //Default artifactory connect info
         BE_IMAGE_NAME="mlops-frontend"
         SERVER_ID="Jfrog-mlops-model-store"
         DOCKER_REPO="mlops-docker-images"
+
+        //The name and version for the backend image to be built
+        IMAGE_TO_PUSH="${BE_IMAGE_NAME}:${params.VERSION}"
+
         // Define default job parameters
         propagate = true
 
