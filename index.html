@@ -18,72 +18,6 @@
 			}
 		</style>
 		<link rel="stylesheet" href="style.css">
-		<script>
-			// const modelURL = "http://localhost:5000/model";
-			// const predURL  = "http://localhost:5000/predict";
-			const modelURL = "https://backend-mlops-prj-gramphoang.apps.sandbox-m3.1530.p1.openshiftapps.com/model";
-			const predURL  = "https://backend-mlops-prj-gramphoang.apps.sandbox-m3.1530.p1.openshiftapps.com/predict";
-
-			// make the API call to fetch the list of models
-			fetch(modelURL)
-				.then(response => response.json())
-				.then(data => {
-				// update the options of the select element with the fetched data
-				const selectElement = document.getElementById('model_choice');
-				data.forEach(model => {
-					const optionElement = document.createElement('option');
-					optionElement.textContent = model;
-					selectElement.appendChild(optionElement);
-				});
-				}, { mode: 'no-cors' })
-				.catch(error => console.error(error));
-
-			document.addEventListener("DOMContentLoaded", function(event) {
-				document.querySelectorAll('img').forEach(function(img){
-					img.onerror = function(){this.style.display='none';};
-				})
-				});
-
-				const form = document.querySelector('#myform');
-				const submitBtn = document.querySelector('#submit-btn');
-				const jsonOutput = document.getElementById('jsoninfo');
-				const stringOutput = document.getElementById('outstr');
-				// const modelSelect = document.getElementById('model_choice');
-				// const selectedModel = "no";
-				// modelSelect.addEventListener('change', (event) => {
-				// 	const selectedModel = event.target.value;
-				// });
-
-			form.addEventListener('submit', async (e) => {
-				e.preventDefault();
-				const file = document.querySelector('#inputfile').files[0];
-				const modelSelect = document.getElementById('model_choice');
-				const selectedModel = modelSelect.value;
-				const formData = new FormData();
-				formData.append('file', file);
-				formData.append('model', selectedModel);
-
-				const response = await fetch(predURL, {
-					method: 'POST',
-					body: formData
-					});
-				const jsonres = await response.json();
-
-				const resultImgData = jsonres.result_img;
-				const resultImg = document.getElementById('ItemPreview');
-				resultImg.src = 'data:image/png;base64,' + resultImgData;
-				
-				console.log(resultImg);
-				console.log(jsonOutput);
-				
-				jsonOutput.innerHTML = jsonres.results;
-				stringOutput.innerHTML = jsonres.result_str;
-				
-				document.getElementById("jsoninfo").style.display = "block";
-				document.getElementById("outstr").style.display = "block";
-				document.getElementById("ItemPreview").style.display = "block";
-			});
-		</script>
 		<title>YOLOv5 Object Detection - Demo</title>
 	</head>
 	<body>
@@ -129,44 +63,6 @@
 			<p align="center">Demo MLOps</p>
     </form>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
-		<!-- <video id="video-stream"></video>
-		<img id = "processed-video">
-		<script>
-			const socket = io('http://localhost:5000');
-			const video = document.getElementById('video-stream');
-			const constraints = {
-				video: {
-					width: { max: 640 },
-					height: { max: 480 },
-				},
-				};
-			
-			navigator.mediaDevices.getUserMedia(constraints)
-				.then((stream) => {
-					video.srcObject = stream;
-					video.play();
-					const canvas = document.createElement('canvas');
-					const ctx = canvas.getContext('2d');
-					setInterval(() => {
-						canvas.width = 640;
-						canvas.height = 480;
-						ctx.drawImage(video, 0, 0);
-						const data = canvas.toDataURL('image/jpeg');
-						socket.emit('frame', data);
-					}, 1000/5);
-				})
-				.catch((error) => {
-					// console.error('Error accessing camera', error);
-				});
-
-			socket.on('connect', () => {
-				console.log('Socket connection successful');
-			});
-			const processedVideo2 = document.getElementById("processed-video");
-			socket.on('processed_frame', (data) => {
-				processedVideo2.src = data;
-				});
-		</script> -->
 		<script src="//code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 		<script src="//stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
@@ -189,38 +85,6 @@
 		<script>
 			
 		</script>
-		<!-- <script>
-			const toggleBtn = document.getElementById('opencam');
-			const videoStream = document.getElementById('imgOut');
-			const ImgOutBox = document.getElementById('ItemPreview');
-			toggleBtn.addEventListener('click', async function() {
-				if (videoStream.lastElementChild.id == "ItemPreview") {
-					// videoStream.lastElementChild.style.display = 'block';
-					await startVideoStream();
-				} else {
-					await stopVideoStream();
-					// videoStream.lastElementChild.style.display = 'none';
-				}
-			});
-
-			function stopVideoStream() {
-				// Remove the <img> element to stop the video stream
-				const videoElement = document.querySelector(`imgOut`);
-				if (videoStream.lastChild) {
-					videoStream.removeChild(videoStream.lastChild);
-					videoStream.appendChild(ImgOutBox);
-				}
-			}
-
-			function startVideoStream() {
-			// Start the video stream by creating a new <img> element and setting its src attribute to the video_feed URL
-				const videoElement = document.createElement('img');
-				videoElement.id = "processed-video";
-				videoElement.alt = "";
-				// videoElement.src = videoUrl;
-				videoStream.removeChild(videoStream.lastChild)
-				videoStream.appendChild(videoElement);
-			}	
-		  </script> -->
+	<script src="script.js"> </script>
 	</body>
 </html>
