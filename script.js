@@ -2,7 +2,7 @@
 // const predURL  = "http://localhost:5000/predict";
 const modelURL = "http://backend-mlops-prj.apps.sandbox-m3.1530.p1.openshiftapps.com/model";
 const predURL  = "http://backend-mlops-prj.apps.sandbox-m3.1530.p1.openshiftapps.com/predict";
-const dummy = "test"
+const dummy = "test number 2"
 
 // make the API call to fetch the list of models
 fetch(modelURL)
