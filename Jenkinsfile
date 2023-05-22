@@ -40,18 +40,18 @@ pipeline {
                         )
                     ]) {
                         // Build the Docker image
-                        sh "docker build --no-cache -t artifactorymlopsk18.jfrog.io/${DOCKER_REPO}/${IMAGE_TO_PUSH} ."
-                        sh "docker login -u ${USERNAME} -p ${PASSWORD} artifactorymlopsk18.jfrog.io"
+                        sh "docker build --no-cache -t ${env.SERVER_URL}/${DOCKER_REPO}/${IMAGE_TO_PUSH} ."
+                        sh "docker login -u ${USERNAME} -p ${PASSWORD} ${env.SERVER_URL}"
 
                         // sh "docker tag ${IMAGE_TO_PUSH} artifactorymlopsk18.jfrog.io/${DOCKER_REPO}/${IMAGE_TO_PUSH}"
-                        sh "docker push artifactorymlopsk18.jfrog.io/${DOCKER_REPO}/${IMAGE_TO_PUSH}"
+                        sh "docker push ${env.SERVER_URL}/${DOCKER_REPO}/${IMAGE_TO_PUSH}"
                     }
                 }
             }
             post {
                 success {
                     script { 
-                        sh "docker image rm -f artifactorymlopsk18.jfrog.io/${DOCKER_REPO}/${IMAGE_TO_PUSH}" 
+                        sh "docker image rm -f ${env.SERVER_URL}/${DOCKER_REPO}/${IMAGE_TO_PUSH}" 
                     }
                 }
             }
