@@ -14,12 +14,11 @@ pipeline {
 
     environment {
         //Default artifactory connect info
-        BE_IMAGE_NAME="mlops-frontend"
+        FE_IMAGE_NAME="mlops-frontend"
         SERVER_ID="Jfrog-mlops-model-store"
-        DOCKER_REPO="mlops-docker-images"
 
         //The name and version for the backend image to be built
-        IMAGE_TO_PUSH="${BE_IMAGE_NAME}:${params.VERSION}"
+        IMAGE_TO_PUSH="${FE_IMAGE_NAME}:${params.VERSION}"
 
         // Define default job parameters
         propagate = true
@@ -40,18 +39,18 @@ pipeline {
                         )
                     ]) {
                         // Build the Docker image
-                        sh "docker build --no-cache -t ${env.SERVER_URL}/${DOCKER_REPO}/${IMAGE_TO_PUSH} ."
+                        sh "docker build --no-cache -t ${env.SERVER_URL}/${env.DOCKER_REPO}/${IMAGE_TO_PUSH} ."
                         sh "docker login -u ${USERNAME} -p ${PASSWORD} ${env.SERVER_URL}"
 
-                        // sh "docker tag ${IMAGE_TO_PUSH} artifactorymlopsk18.jfrog.io/${DOCKER_REPO}/${IMAGE_TO_PUSH}"
-                        sh "docker push ${env.SERVER_URL}/${DOCKER_REPO}/${IMAGE_TO_PUSH}"
+                        // sh "docker tag ${IMAGE_TO_PUSH} artifactorymlopsk18.jfrog.io/${env.DOCKER_REPO}/${IMAGE_TO_PUSH}"
+                        sh "docker push ${env.SERVER_URL}/${env.DOCKER_REPO}/${IMAGE_TO_PUSH}"
                     }
                 }
             }
             post {
                 success {
                     script { 
-                        sh "docker image rm -f ${env.SERVER_URL}/${DOCKER_REPO}/${IMAGE_TO_PUSH}" 
+                        sh "docker image rm -f ${env.SERVER_URL}/${env.DOCKER_REPO}/${IMAGE_TO_PUSH}" 
                     }
                 }
             }
