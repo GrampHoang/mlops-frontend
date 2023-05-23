@@ -1,4 +1,5 @@
 #!/usr/bin/env groovy
+library 'mlops-shared-lib'
 
 pipeline {
     agent any
@@ -26,6 +27,19 @@ pipeline {
     }
 
     stages {
+        stage('Precheck pipeline parameters'){
+            steps {
+                script {
+                    echo "Validating parameters..."
+                    if (!params.VERSION?.trim()) {
+                        error "VERSION is a mandatory parameter"
+                        return
+                    }
+                    //Check semantic rule for parameter
+                    semanticVersionCheck(this,params.VERSION)
+                }
+            }
+        }
 
         stage('Build and Push Docker Image') {
             steps {
