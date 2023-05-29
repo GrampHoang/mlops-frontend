@@ -58,7 +58,6 @@ metadata:
   labels:
     app: mlops-app
 spec:
-      host: frontend-mlops-prj.apps.sandbox-m3.1530.p1.openshiftapps.com
       to:
         kind: Service
         name: frontend-mlops-dc 
