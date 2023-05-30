@@ -21,8 +21,11 @@ spec:
         deploymentconfig: frontend-mlops
     spec:
       containers:
-      - name: frontend-mlops
-        image: artifactorymlopsdemo.jfrog.io/mlops-docker-images/mlops-frontend:280523_11
+      - env:
+        - name: BACKEND_URL
+          value: http://backend-mlops-production.apps.sandbox-m2.ll9k.p1.openshiftapps.com
+        name: frontend-mlops
+        image: artifactorymlopsdemo.jfrog.io/mlops-docker-images/mlops-frontend:test_30052315
         ports:
         - containerPort: 8008
         resources:
