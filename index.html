@@ -18,8 +18,11 @@
 			}
 		</style>
 		<link rel="stylesheet" href="style.css">
-		
 		<title>YOLOv5 Object Detection - Demo</title>
+		<script>
+			var BACKEND_URL = '__BACKEND_URL__';
+		</script>
+	
 	</head>
 	<body>
 		<!-- <form method=post enctype=multipart/form-data> -->
@@ -30,7 +33,7 @@
 				font-weight: 700;
 				font-size: 60px;
 				line-height: 58px;
-				text-align: center;"> Object Detection Demo Frontend
+				text-align: center;"> Object Detection Demo Frontend v3
 				</div></strong></b></div>
 			<div class="infield">
 				<div class="incontainer">
@@ -56,7 +59,7 @@
 			<div style="height: 20px;"></div>
 			<div class="outfield">
 				<div class="imgout" id="imgOut">
-					<img id="ItemPreview" onerror="this.style.display='none'" style="height:auto; max-width: 80%; max-height: 800px; max-width: 900px; max-height: 600px;">
+					<img id="ItemPreview" onerror="this.style.display='none'" style="height:auto; max-width: 900px; max-height: 650px;">
 				</div>
 				<div class="infoout">
 					<h3>Detected objects:</h3>

@@ -1,11 +1,12 @@
-// const modelURL = "http://localhost:5000/model";
-// const predURL  = "http://localhost:5000/predict";
-const modelURL = "http://backend-mlops-production.apps.sandbox-m2.ll9k.p1.openshiftapps.com/model";
-const predURL  = "http://backend-mlops-production.apps.sandbox-m2.ll9k.p1.openshiftapps.com/predict";
-const dummy = "test number 2"
+function getModelUrl() {
+    return BACKEND_URL + '/model';
+}
 
+function getPredictUrl() {
+    return BACKEND_URL + '/predict';
+}
 // make the API call to fetch the list of models
-fetch(modelURL)
+fetch(getModelUrl())
     .then(response => response.json())
     .then(data => {
     // update the options of the select element with the fetched data
@@ -38,7 +39,7 @@ submitBtn.addEventListener('click', async (e) => {
     formData.append('file', file);
     formData.append('model', selectedModel);
 
-    const response = await fetch(predURL, {
+    const response = await fetch(getPredictUrl(), {
         method: 'POST',
         body: formData
         });
@@ -58,3 +59,22 @@ submitBtn.addEventListener('click', async (e) => {
     document.getElementById("outstr").style.display = "block";
     document.getElementById("ItemPreview").style.display = "block";
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
